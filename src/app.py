@@ -4,7 +4,7 @@ from pyramid.config import Configurator
 if __name__ == '__main__':
   with Configurator() as config:
     # Routes
-    config.add_route('hello', '/')
+    config.add_route('home', '/')
     config.add_route('cars', '/cars')
     config.add_route('car', '/cars/{id}')
     config.include('pyramid_jinja2')

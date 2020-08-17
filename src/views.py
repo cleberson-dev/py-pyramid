@@ -83,3 +83,10 @@ def delete_car(request):
   
   return Response(status=status_code, json_body=body)
   
+
+
+# Templating com Jinja2
+@view_config(route_name='home', renderer='index.jinja2')
+def home(request):
+  message = 'Olá, mundinho!'
+  return { "message": message }
