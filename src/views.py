@@ -31,4 +31,32 @@ def create_car(request):
    }
   cars.append(new_car)
   return cars
+
+@view_config(
+  route_name='car',
+  renderer='json',
+  request_method='PATCH'
+)
+def update_car(request):
+  car_id = request.matchdict['id']
+
+  car_found = None
+  for i in range(len(cars)):
+    if cars[i]['id'] == car_id:
+      car_found = i
+      break
+  
+  if car_found == None:
+    status_code = 404
+    body = { "success": False, "message": "Not found" }
+  else:
+    cars[i] = { 
+      "id": cars[i]['id'],
+      "make": request.json_body['make'],
+      "model": request.json_body['model']
+    }
+    status_code = 200
+    body = { "success": True, "message": "Car successfully updated", "data": cars[i] }
+
+  return Response(status=status_code, json_body=body)
   
