@@ -7,6 +7,7 @@ if __name__ == '__main__':
     config.add_route('hello', '/')
     config.add_route('cars', '/cars')
     config.add_route('car', '/cars/{id}')
+    config.include('pyramid_jinja2')
     config.scan('views')
     
     app = config.make_wsgi_app()
