@@ -59,4 +59,27 @@ def update_car(request):
     body = { "success": True, "message": "Car successfully updated", "data": cars[i] }
 
   return Response(status=status_code, json_body=body)
+
+@view_config(
+  route_name='car',
+  renderer='json',
+  request_method='DELETE'
+)
+def delete_car(request):
+  removed_car = None
+  car_id = request.matchdict['id']
+  status_code = 200
+  
+  for i in range(len(cars)):
+    if cars[i]['id'] == car_id:
+      removed_car = cars.pop(i)
+      break
+
+  if removed_car == None:
+    status_code = 404
+    body = { "success": False, "message": "Not found" }
+  else:
+    body = { "success": True, "message": "Car successfully removed", "data": removed_car }
+  
+  return Response(status=status_code, json_body=body)
   
